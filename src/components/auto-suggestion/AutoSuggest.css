@@ -1,5 +1,20 @@
+.container-suggestion {
+    max-width: 149px;
+    border: none;
+    outline: none;
+    width: 150px;
+    margin: 0 auto;
+    margin-bottom: 80px;
+}
+
 .suggestion {
     background-color: white;
     display: flex;
-    align-items: center;
+    justify-content: center;
+}
+
+.suggestion:hover {
+    background: #0ccac4;
+    color: white;
+    cursor: pointer;
 }

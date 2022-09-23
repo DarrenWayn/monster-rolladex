@@ -6,15 +6,13 @@ import "./App.css";
 
 function App() {
   const [monsters, setMonsters] = useState([]);
-  const [suggestion, setSuggestion] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
   const [searchField, setSearchField] = useState("");
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
-      .then((users) => setMonsters(users))
-    
-    setSuggestion(monsters)
+      .then((users) => setMonsters(users));
   }, []);
 
   const filteredMonster = monsters.filter((monster) =>
@@ -24,6 +22,11 @@ function App() {
   const handleChange = (e) => {
     const onSearch = e.target.value;
     setSearchField(onSearch.toLocaleLowerCase());
+    setSuggestions(filteredMonster);
+  };
+
+  const handleChoose = (suggest) => {
+    setSearchField(suggest.name.toLocaleLowerCase());
   };
 
   return (
@@ -31,11 +34,14 @@ function App() {
       <h1 className="app-title">Monster Rolladex</h1>
       <SearchBox
         handleChange={handleChange}
-        placeholder="search monsters"
-        className="search-box"
+        placeholder="Search monster"
+        value={searchField}
+        className={searchField ? "mb-none" : "search-box"}
         type="search"
       />
-      {searchField ? <AutoSuggest /> : null}
+      {searchField && (
+        <AutoSuggest suggestions={suggestions} handleChoose={handleChoose} />
+      )}
       <CardList monsters={filteredMonster} searchField={searchField} />
     </div>
   );

@@ -1,10 +1,19 @@
 import React from "react";
-import './AutoSuggest.css'
+import "./AutoSuggest.css";
 
-const AutoSuggest = () => {
+const AutoSuggest = ({ suggestions, handleChoose }) => {
+  // console.log(suggestions)
   return (
     <div className="container-suggestion">
-        <div className='suggestion'>test</div>
+      {suggestions.map((suggestion) => (
+        <div
+          key={suggestion.id}
+          className="suggestion"
+          onClick={handleChoose.bind(this, suggestion)}
+        >
+          {suggestion.name}
+        </div>
+      ))}
     </div>
   );
 };
